@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Verifica IdArticolo</title>
+    <link rel="stylesheet" href="common.css">
+</head>
+
+<body>
+    <div class="header-section">
+        <a href="/">Home</a>
+        <h1>Preleva Articolo</h1>
+    </div>
+    <div class="horizontal-line"></div>
+    <div class="form-container">
+        <div class="form-row">
+            <label for="codiceInterno">Inserisci Codice Interno</label>
+            <input type="text" id="codiceInterno" name="codice_interno" required>
+        </div>
+        <button type="button" id="submitIdMovimento">Invia</button>
+
+    </div>
+    <br>
+    <div class="message-container">
+        <div id="result">
+            <p><strong>Messaggio:</strong></p>
+        </div>
+    </div>
+
+    <script>
+        let idMovimento = null;
+        //trova il pulsante con id=submitIdMovimento e aggiungi una funzione all'evento del click
+        document.getElementById("submitIdMovimento").addEventListener("click", function () {
+            //variabile costante per prendere il valore inserito dall'utente e usarlo per una richiesta http
+            const codiceInterno = document.getElementById("codiceInterno").value;
+            // Inizia una richiesta HTTP verso l'URL /movimenti/uscita?codiceInterno=${codiceInterno}
+            //con metodo PUT
+            //Costruisce l'URL includendo il valore di codiceInterno come parametro di query (es. /movimenti/uscita?codiceInterno=ABC123
+            fetch(`/movimenti/uscita?codiceInterno=${codiceInterno}`, {
+                method: "PUT",
+
+                //.then: Gestisce il risultato della Promise restituita da fetch
+                //response => response.text(): Riceve l'oggetto Response e chiama response.text(), che legge il corpo della risposta come testo e restituisce una nuova Promise.
+                //response è un oggetto che contiene informazioni sulla risposta HTTP
+                //Non viene controllato response.ok, il che è un potenziale problema: se la risposta ha uno stato di errore (es. 404), il codice tenterà comunque di leggere il testo, senza gestire l'errore.
+            }).then(response => response.text())
+
+                //.then è un metodo delle Promise che specifica cosa fare quando una Promise si risolve con successo. Permette di concatenare operazioni asincrone, eseguendo ogni passo solo quando il precedente è completato.
+                .then(data => {
+                    console.log(data)
+                    document.getElementById("result").innerHTML = data;
+                })
+                .catch(error => {
+                    document.getElementById("message").textContent = "Errore: " + error;
+                });
+
+        })  //response ok????---------
+
+    </script>
+</body>
+
+</html>

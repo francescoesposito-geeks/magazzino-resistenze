@@ -1,0 +1,60 @@
+/* Resetta i margini e padding predefiniti di tutti gli elementi per evitare spazi indesiderati */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Include padding e bordi nel calcolo della larghezza/altezza */
+}
+
+/* Imposta l'altezza e larghezza totali per html e body per coprire tutta la finestra */
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+/* Definisce lo stile di base del body: sfondo grigio chiaro, testo nero, font specificato */
+body {
+    background-color: gainsboro;
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+/* Stile per la sezione del titolo: sfondo bianco, larghezza totale, padding verticale */
+.header-section {
+    background-color: white;
+    width: 100%;
+    padding: 20px 0; /* Spazio interno sopra e sotto il titolo */
+    margin: 0; /* Nessun margine esterno */
+    overflow: hidden; /* Contiene eventuali margini collassati */
+    position: relative; /* Crea un contesto per il posizionamento interno */
+}
+
+/* Sposta il titolo a destra all'interno del .header-section con padding sinistro */
+.header-section h1 {
+    margin-left: 15px; /* Sposta il titolo di 150px a destra */
+    padding: 0; /* Nessun padding interno */
+}
+
+/* Stile per la riga orizzontale: linea nera, larghezza totale, spazio sotto */
+.horizontal-line {
+    border-bottom: 2px solid black;
+    width: 100%;
+    margin: 0 0 30px 0; /* Spazio solo sotto la riga */
+}
+
+/* Contenitore per i link: sposta i link a destra */
+.links-container {
+    margin-left: 20px; /* Sposta i link di 150px a destra, allineati al titolo */
+}
+
+/* Stile per ogni link: occupa una riga, spazio tra i link, testo nero */
+.links-container a {
+    display: block; /* Ogni link su una nuova riga */
+    margin-bottom: 0%; /* Spazio tra i link */
+    text-decoration: none; /* Rimuove la sottolineatura */
+    color: black; /* Testo nero */
+}
+
+/* Opzionale: cambia colore al passaggio del mouse sui link */
+.links-container a:hover {
+    color: purple;
+}

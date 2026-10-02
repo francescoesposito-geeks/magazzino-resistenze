@@ -1,0 +1,100 @@
+/* inserisciArticoli.css */
+
+/* Resetta i margini e i padding predefiniti di tutti gli elementi per evitare spazi indesiderati e include padding/bordi nel calcolo della larghezza/altezza */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Imposta l'altezza e la larghezza totali di html e body per coprire tutta la finestra del browser */
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+/* Definisce lo stile di base del body: sfondo grigio chiaro, testo nero, e usa il font specificato */
+body {
+    background-color: gainsboro;
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+/* Stile per la sezione del titolo: sfondo bianco, larghezza totale, padding verticale, e crea un contesto per il posizionamento interno */
+.header-section {
+    background-color: white;
+    width: 100%;
+    padding: 20px 0;
+    margin: 0;
+    position: relative;
+}
+
+/* Sposta il titolo (h1) a destra all'interno del .header-section con un margine sinistro e senza padding interno */
+.header-section h1 {
+    margin-left: 15px;
+    padding: 0;
+}
+
+/* Stile per il link (a) nella header-section: occupa una riga intera, allinea a sinistra con margine, aggiunge spazio sotto, rimuove la sottolineatura e imposta il colore del testo */
+.header-section a {
+    display: block;
+    margin-left: 15px;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: black;
+}
+
+/* Cambia il colore del link al passaggio del mouse per un effetto interattivo */
+.header-section a:hover {
+    color: purple;
+}
+
+/* Stile per la riga orizzontale: crea una linea nera sotto il titolo, occupa tutta la larghezza, e aggiunge uno spazio sotto */
+.horizontal-line {
+    border-bottom: 2px solid black;
+    width: 100%;
+    margin: 0 0 30px 0;
+}
+
+/* Contenitore per il form: allinea il margine sinistro con l'h1 e limita la larghezza massima */
+.form-container {
+    margin-left: 15px; /* Allinea con l'h1 */
+    max-width: 600px;
+}
+
+/* Aggiunge spazio verticale tra le righe del form */
+.form-row {
+    margin-bottom: 15px; /* Spazio tra le righe del form */
+}
+
+/* Stile per le etichette nel form: le rende elementi inline-block con una larghezza fissa per un allineamento uniforme */
+.form-row label {
+    display: inline-block;
+    width: 100px; /* Allinea le etichette */
+}
+
+/* Stile per gli input nel form: definisce padding e larghezza per un aspetto consistente */
+.form-row input {
+    padding: 8px;
+    width: 200px;
+}
+
+/* Stile per il pulsante nel form: allinea con gli input, imposta colore e stile, e rimuove il bordo */
+.form-container button {
+    margin-left: 100px; /* Allinea il pulsante con gli input */
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Cambia il colore del pulsante al passaggio del mouse per un effetto interattivo */
+.form-container button:hover {
+    background-color: #0056b3;
+}
+
+/* Contenitore per il messaggio: allinea il margine sinistro con l'h1 */
+.message-container {
+    margin-left: 15px; /* Allinea con l'h1 */
+}

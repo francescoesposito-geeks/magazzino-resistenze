@@ -1,0 +1,6 @@
+spring.application.name=magazzino
+db.host=localhost
+db.dbName=magazzinoresistenza
+db.username=IL_TUO_UTENTE
+db.password=LA_TUA_PASSWORD
+db.portNumber=3306

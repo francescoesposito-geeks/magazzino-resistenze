@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Verifica IdArticolo</title>
+    <link rel="stylesheet" href="common.css">
+</head>
+
+<body>
+    <div class="header-section">
+        <a href="/">Home</a>
+        <h1>Ingresso articoli</h1>
+    </div>
+    <div class="horizontal-line"></div>
+    <div class="form-container">
+        <div class="form-row">
+            <label for="barcode">Inserisci BarCode:</label>
+            <input type="text" id="barcode" name="barcode" required>
+        </div>
+        <button id="submitBtn" type="button">Invia</button>
+
+    </div>
+    <br>
+    <div class="message-container">
+        <div id="message">
+            <p><strong>Messaggio:</strong></p>
+        </div>
+    </div>
+    <script>
+
+        document.getElementById("submitBtn").addEventListener("click", function () {
+            event.preventDefault();
+            const barcode = document.getElementById("barcode").value;
+
+            const payload = { barcode: barcode };
+            console.log(payload);
+
+            fetch(`movimenti/entrata`, {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload),
+
+            })
+
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    const msg = `
+                        <ul>
+                            <li><strong>idLocazione:</strong> ${data.idLocazione}</li>
+                            <li><strong>corsia:</strong> ${data.corsia}</li>
+                            <li><strong>colonna:</strong> ${data.colonna}</li>
+                            <li><strong>ripiano:</strong> ${data.ripiano}</li>
+                            <li><strong>idMovimento:</strong> ${data.idMovimento}</li>
+                            <li><strong>codiceInterno:</strong> ${data.codiceInterno}</li>
+                        </ul>
+                    `;
+                    document.getElementById("message").innerHTML = msg;
+                })
+                .catch(error => {
+                    document.getElementById("message").textContent = "Errore: " + error;
+                });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Conferma Uscita</title>
+    <link rel="stylesheet" href="common.css">
+</head>
+
+<body>
+    <div class="header-section">
+        <a href="/">Home</a>
+        <h1>Leggi codice a barre</h1>
+    </div>
+    <div class="horizontal-line"></div>
+    <form class="form-container">
+        <div class="form-row">
+            <label for="codiceInterno">Inserisci Codice Interno:</label>
+            <input type="text" id="codiceInterno" name="codice_interno" required>
+        </div>
+        <div class="form-row">
+            <label for="idLocazione">Inserisci idLocazione:</label>
+            <input type="text" id="idLocazione" name="locazione" required>
+        </div>
+        <div class="form-row">
+            <button id="buttonConfermaUscita" type="button">Invia</button>
+        </div>
+    </form>
+    <div class="message-container">
+        <p id="result"></p>
+    </div>
+    <script>
+
+        document.getElementById("buttonConfermaUscita").addEventListener("click", function () {
+            event.preventDefault();
+            const codiceInterno = document.getElementById("codiceInterno").value;
+            const idLocazione = document.getElementById("idLocazione").value;
+            fetch(`movimenti/uscita/conferma?codiceInterno=${codiceInterno}&idLocazione=${idLocazione}`, {
+                method: "PUT",
+                headers: {
+                    'Accept': 'application/text',
+
+                },
+
+
+            })
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data)
+                    document.getElementById("result").innerHTML = data;
+                })
+                .catch(data => {
+                    console.log(data)
+                    document.getElementById("result").innerHTML = data;
+                })
+        })
+
+
+
+    </script>
+</body>
+
+</html>
