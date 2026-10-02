@@ -21,7 +21,7 @@ Progetto finale del corso IFTS *Tecniche di programmazione Java, Android e Web p
 | Livello | Tecnologie |
 |---|---|
 | Frontend | HTML, CSS, JavaScript (Fetch API) |
-| Backend | Java 17, Spring Boot 3.5, Spring MVC, Lombok, Maven |
+| Backend | Java 21, Spring Boot 3.5, Spring MVC, Lombok, Maven |
 | Persistenza | MySQL 8.4, JDBC |
 | Strumenti | Git, GitHub, Postman, VS Code, MySQL Workbench |
 
@@ -51,7 +51,7 @@ magazzino-resistenze/
 | GET | `/movimenti/uscita` | Elenco delle uscite da confermare |
 
 ## 🚀 Avvio in locale
-**Requisiti:** Java 17 o superiore, MySQL 8.4. Maven non serve: viene scaricato automaticamente dal wrapper `mvnw`.
+**Requisiti:** Java 21 o superiore, MySQL 8.4. Maven non serve: viene scaricato automaticamente dal wrapper `mvnw`.
 
 **1. Crea il database** eseguendo lo script [`database/schema.sql`](database/schema.sql) (da MySQL Workbench oppure con il client `mysql` come utente amministratore).
 

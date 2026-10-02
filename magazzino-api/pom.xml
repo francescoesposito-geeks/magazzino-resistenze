@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.0</version>
+		<version>3.5.16</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>it.francesco</groupId>
@@ -50,11 +50,6 @@
 			<groupId>it.francesco</groupId>
 			<artifactId>magazzinoDb</artifactId>
 			<version>1.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.28</version> <!-- Use the latest version available -->
 		</dependency>
 	</dependencies>
 
