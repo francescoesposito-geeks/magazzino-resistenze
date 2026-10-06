@@ -30,33 +30,18 @@
         <p id="result"></p>
     </div>
     <script>
-
         document.getElementById("buttonConfermaUscita").addEventListener("click", function () {
-            event.preventDefault();
-            const codiceInterno = document.getElementById("codiceInterno").value;
-            const idLocazione = document.getElementById("idLocazione").value;
-            fetch(`movimenti/uscita/conferma?codiceInterno=${codiceInterno}&idLocazione=${idLocazione}`, {
-                method: "PUT",
-                headers: {
-                    'Accept': 'application/text',
+            const risultato = document.getElementById("result");
+            const parametri = new URLSearchParams({
+                codiceInterno: document.getElementById("codiceInterno").value,
+                idLocazione: document.getElementById("idLocazione").value
+            });
 
-                },
-
-
-            })
+            fetch("/movimenti/uscita/conferma?" + parametri, { method: "PUT" })
                 .then(response => response.text())
-                .then(data => {
-                    console.log(data)
-                    document.getElementById("result").innerHTML = data;
-                })
-                .catch(data => {
-                    console.log(data)
-                    document.getElementById("result").innerHTML = data;
-                })
-        })
-
-
-
+                .then(testo => { risultato.textContent = testo; })
+                .catch(error => { risultato.textContent = "Errore: " + error.message; });
+        });
     </script>
 </body>
 

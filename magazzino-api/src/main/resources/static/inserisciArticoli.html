@@ -30,49 +30,28 @@
     </div>
 
     <script>
-        //Organizzare la logica per raccogliere i dati, inviarli al server e gestire la risposta
         function inviaDati() {
-            //Assegna il valore alla costante descrizione/barcode,Trova l'elemento HTML con id="descrizione" (un campo <input> o <textarea>,.value: Ottiene il valore inserito dall'utente in quel campo.
             const descrizione = document.getElementById("descrizione").value;
             const barcode = document.getElementById("barcode").value;
+            const messaggio = document.getElementById("messaggio");
 
-            //fetch: Inizia una richiesta HTTP usando l'API Fetch.'/barcode': Specifica l'URL dell'endpoint del server.Eseguire una richiesta POST per trasmettere i dati al server, basata su Promise
-            fetch('/barcode', { 
-                method: 'POST',
-                //Apre un oggetto che definisce gli header della richiesta HTTP.
-                // Comunica al server che i dati nel corpo della richiesta sono in formato JSON
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                //body:: Specifica il corpo della richiesta, cioè i dati da inviare.
-                //JSON.stringify(: Converte un oggetto JavaScript in una stringa JSON.
-                body: JSON.stringify({
-                    // Include il valore del campo "barcode"/"descrizione" nei dati da inviare.
-                    descrizione: descrizione,
-                    barcode: barcode
-                })
+            fetch("/barcode", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ descrizione: descrizione, barcode: barcode })
             })
-                //.then: Aggiunge una funzione per gestire la risposta del server.
-                // La richiesta fetch è asincrona, e .then viene usato per elaborare la risposta una volta che il server la invia.
-                // La variabile response contiene la risposta del server; apre il blocco di codice.
-                //Una Promise rappresenta un'operazione che non è ancora completata, ma che alla fine restituirà un valore (o un errore). .then specifica cosa fare con quel valore.
-                .then(response => {
-                    //response.ok: Verifica se lo stato HTTP della risposta è tra 200 e 299 (successo).
-                    if (response.ok) {
-                        return response.text();
-                    } else {
-                        throw new Error('Errore durante il salvataggio');
+                .then(response => response.text().then(testo => {
+                    if (!response.ok) {
+                        throw new Error(testo || "Errore durante il salvataggio");
                     }
-                })
-                .then(data => {
-                    document.getElementById("messaggio").innerText = data;
-                    document.getElementById("messaggio").innerText = "Resistenza salvata";
-                    setTimeout(() => {
-                        document.getElementById("messaggio").innerText = "";
-                    }, 2000); // Scompare dopo 3 secondi
+                    return testo;
+                }))
+                .then(testo => {
+                    messaggio.textContent = testo;
+                    setTimeout(() => { messaggio.textContent = ""; }, 3000);
                 })
                 .catch(error => {
-                    document.getElementById("messaggio").innerText = error.message;
+                    messaggio.textContent = error.message;
                 });
         }
     </script>

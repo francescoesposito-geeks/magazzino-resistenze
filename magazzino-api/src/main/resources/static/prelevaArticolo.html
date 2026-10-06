@@ -29,34 +29,17 @@
     </div>
 
     <script>
-        let idMovimento = null;
-        //trova il pulsante con id=submitIdMovimento e aggiungi una funzione all'evento del click
         document.getElementById("submitIdMovimento").addEventListener("click", function () {
-            //variabile costante per prendere il valore inserito dall'utente e usarlo per una richiesta http
-            const codiceInterno = document.getElementById("codiceInterno").value;
-            // Inizia una richiesta HTTP verso l'URL /movimenti/uscita?codiceInterno=${codiceInterno}
-            //con metodo PUT
-            //Costruisce l'URL includendo il valore di codiceInterno come parametro di query (es. /movimenti/uscita?codiceInterno=ABC123
-            fetch(`/movimenti/uscita?codiceInterno=${codiceInterno}`, {
-                method: "PUT",
+            const risultato = document.getElementById("result");
+            const parametri = new URLSearchParams({
+                codiceInterno: document.getElementById("codiceInterno").value
+            });
 
-                //.then: Gestisce il risultato della Promise restituita da fetch
-                //response => response.text(): Riceve l'oggetto Response e chiama response.text(), che legge il corpo della risposta come testo e restituisce una nuova Promise.
-                //response è un oggetto che contiene informazioni sulla risposta HTTP
-                //Non viene controllato response.ok, il che è un potenziale problema: se la risposta ha uno stato di errore (es. 404), il codice tenterà comunque di leggere il testo, senza gestire l'errore.
-            }).then(response => response.text())
-
-                //.then è un metodo delle Promise che specifica cosa fare quando una Promise si risolve con successo. Permette di concatenare operazioni asincrone, eseguendo ogni passo solo quando il precedente è completato.
-                .then(data => {
-                    console.log(data)
-                    document.getElementById("result").innerHTML = data;
-                })
-                .catch(error => {
-                    document.getElementById("message").textContent = "Errore: " + error;
-                });
-
-        })  //response ok????---------
-
+            fetch("/movimenti/uscita?" + parametri, { method: "PUT" })
+                .then(response => response.text())
+                .then(testo => { risultato.textContent = testo; })
+                .catch(error => { risultato.textContent = "Errore: " + error.message; });
+        });
     </script>
 </body>
 

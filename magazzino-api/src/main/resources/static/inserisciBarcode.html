@@ -28,41 +28,37 @@
         </div>
     </div>
     <script>
-
         document.getElementById("submitBtn").addEventListener("click", function () {
-            event.preventDefault();
             const barcode = document.getElementById("barcode").value;
+            const contenitore = document.getElementById("message");
 
-            const payload = { barcode: barcode };
-            console.log(payload);
-
-            fetch(`movimenti/entrata`, {
+            fetch("/movimenti/entrata", {
                 method: "POST",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload),
-
+                headers: { "Accept": "application/json", "Content-Type": "application/json" },
+                body: JSON.stringify({ barcode: barcode })
             })
-
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        return response.text().then(testo => {
+                            throw new Error(testo || "Errore " + response.status);
+                        });
+                    }
+                    return response.json();
+                })
                 .then(data => {
-                    console.log(data);
-                    const msg = `
-                        <ul>
-                            <li><strong>idLocazione:</strong> ${data.idLocazione}</li>
-                            <li><strong>corsia:</strong> ${data.corsia}</li>
-                            <li><strong>colonna:</strong> ${data.colonna}</li>
-                            <li><strong>ripiano:</strong> ${data.ripiano}</li>
-                            <li><strong>idMovimento:</strong> ${data.idMovimento}</li>
-                            <li><strong>codiceInterno:</strong> ${data.codiceInterno}</li>
-                        </ul>
-                    `;
-                    document.getElementById("message").innerHTML = msg;
+                    const campi = ["idLocazione", "corsia", "colonna", "ripiano", "idMovimento", "codiceInterno"];
+                    const lista = document.createElement("ul");
+                    campi.forEach(campo => {
+                        const voce = document.createElement("li");
+                        const etichetta = document.createElement("strong");
+                        etichetta.textContent = campo + ": ";
+                        voce.append(etichetta, String(data[campo]));
+                        lista.appendChild(voce);
+                    });
+                    contenitore.replaceChildren(lista);
                 })
                 .catch(error => {
-                    document.getElementById("message").textContent = "Errore: " + error;
+                    contenitore.textContent = "Errore: " + error.message;
                 });
         });
     </script>
