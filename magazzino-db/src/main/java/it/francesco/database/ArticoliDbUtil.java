@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import it.francesco.models.Articolo;
+import it.francesco.exceptions.DataLayerException;
 
 public class ArticoliDbUtil extends DbUtil {
 
@@ -14,28 +15,23 @@ public class ArticoliDbUtil extends DbUtil {
         super(host, dbName, userName, passWord, portNumber);
     }
 
-    public Articolo salvaArticolo(Articolo articolo) {
-        String queryInserisciArticolo = "insert into articoli (descrizione, numPezziMax, barcode) values(?,?,?)";
+    public Articolo salvaArticolo(Articolo articolo) throws DataLayerException {
+        String query = "insert into articoli (descrizione, numPezziMax, barcode) values(?,?,?)";
 
-        try (PreparedStatement statementSalvaArticolo = connection.prepareStatement(queryInserisciArticolo);) {
+        try (PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            statement.setString(1, articolo.getDescrizione());
+            statement.setInt(2, articolo.getNumPezziMax());
+            statement.setString(3, articolo.getBarcode());
+            statement.executeUpdate();
 
-            statementSalvaArticolo.setString(1, articolo.getDescrizione());
-            statementSalvaArticolo.setInt(2, articolo.getNumPezziMax());
-            statementSalvaArticolo.setString(3, articolo.getBarcode());
-            int risultato = statementSalvaArticolo.executeUpdate();
-            if (risultato > 0) {
-                String querySalvaArticolo = "select * from articoli order by idArticolo desc";
-                PreparedStatement statementLeggiArticoli = connection.prepareStatement(querySalvaArticolo);
-                ResultSet resultQuery = statementLeggiArticoli.executeQuery();
-
-                if (resultQuery.next()) {
-                    int idArticolo = resultQuery.getInt("idArticolo");
-                    articolo.setIdArticolo(idArticolo);
+            try (ResultSet chiaviGenerate = statement.getGeneratedKeys()) {
+                if (chiaviGenerate.next()) {
+                    articolo.setIdArticolo(chiaviGenerate.getInt(1));
                 }
             }
-
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+            throw new DataLayerException();
         }
         return articolo;
     }
