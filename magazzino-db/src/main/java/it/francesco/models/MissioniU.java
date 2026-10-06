@@ -1,23 +1,22 @@
 package it.francesco.models;
 
-import java.time.LocalDate;
-
+/**
+ * Confezione con ingresso confermato e uscita non ancora confermata:
+ * è una "missione di uscita" da completare per l'operatore.
+ * Oggetto di sola lettura, popolato dai dati del database.
+ */
 public class MissioniU {
-    private String barcode;
-    private String descrizione;
-    private int codiceInterno;
-    private int idLocazione;
-    private String corsia;
-    private String colonna;
-    private String ripiano;
 
-    public MissioniU(String barcode,
-            String descrizione,
-            int codiceInterno,
-            int idLocazione,
-            String corsia,
-            String colonna,
-            String ripiano) {
+    private final String barcode;
+    private final String descrizione;
+    private final int codiceInterno;
+    private final int idLocazione;
+    private final String corsia;
+    private final String colonna;
+    private final String ripiano;
+
+    public MissioniU(String barcode, String descrizione, int codiceInterno, int idLocazione,
+            String corsia, String colonna, String ripiano) {
         this.barcode = barcode;
         this.descrizione = descrizione;
         this.codiceInterno = codiceInterno;
@@ -25,63 +24,33 @@ public class MissioniU {
         this.corsia = corsia;
         this.colonna = colonna;
         this.ripiano = ripiano;
-
     }
 
     public String getBarcode() {
-        return this.barcode;
+        return barcode;
     }
 
     public String getDescrizione() {
-        return this.descrizione;
+        return descrizione;
     }
 
     public int getCodiceInterno() {
-        return this.codiceInterno;
+        return codiceInterno;
     }
 
     public int getIdLocazione() {
-        return this.idLocazione;
+        return idLocazione;
     }
 
     public String getCorsia() {
-        return this.corsia;
+        return corsia;
     }
 
     public String getColonna() {
-        return this.colonna;
+        return colonna;
     }
 
     public String getRipiano() {
-        return this.ripiano;
+        return ripiano;
     }
-
-    public void setbarcode(String barcode) {
-        this.barcode = barcode;
-    }
-
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
-    }
-
-    public void setCodiceInterno(int idLocazione) {
-        this.codiceInterno = codiceInterno;
-    }
-
-    public void setIdLocazione(int idLocazione) {
-        this.idLocazione = idLocazione;
-    }
-
-    public void setCorsia(String corsia) {
-        this.corsia = corsia;
-    }
-
-    public void setColonna(String colonna) {
-        this.colonna = colonna;
-    }
-
-    public void setRipiano(String ripiano) {
-        this.ripiano = ripiano;
-    }
-
 }
