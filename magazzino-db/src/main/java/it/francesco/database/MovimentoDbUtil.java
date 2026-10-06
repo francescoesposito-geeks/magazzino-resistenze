@@ -19,7 +19,7 @@ public class MovimentoDbUtil extends DbUtil {
 
     }
 
-    public Movimento salvaMovimento(Movimento movimento) throws DataLayerException {
+    public synchronized Movimento salvaMovimento(Movimento movimento) throws DataLayerException {
         String querySalvaMovimento = "INSERT INTO movimenti (confermatoE, confermatoU, dataOraE, dataOraU, idArticolo, idLocazione, codiceInterno) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement statementSalvaMovimento = connection.prepareStatement(querySalvaMovimento,
